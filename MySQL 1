@@ -2,3 +2,13 @@ SELECT columnname/FROM tablename:
 SELECT breed
 FROM dogs;
 
+LIMIT to restrict the length of a query output:
+Only see the first 5 rows of data:
+SELECT breed
+FROM dogs 
+LIMIT 5;
+
+10 rows of data will be returned, starting at Row 6:
+SELECT breed
+FROM dogs 
+LIMIT 5, 10;
