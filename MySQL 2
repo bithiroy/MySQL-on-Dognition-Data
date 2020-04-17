@@ -30,3 +30,43 @@ IN to specify multiple values in a WHERE clause:
 SELECT dog_guid, breed
 FROM dogs
 WHERE breed IN ("golden retriever","poodle");
+
+LIKE to specify a pattern that the textual data you query has to match:
+to look at all the data from breeds whose names started with "s":
+SELECT dog_guid, breed
+FROM dogs
+WHERE breed LIKE ("s%");
+
+•	WHERE breed LIKE ("s%") = the breed must start with "s", but can have any number of letters after the "s"
+•	WHERE breed LIKE ("%s") = the breed must end with "s", but can have any number of letters before the "s"
+•	WHERE breed LIKE ("%s%") = the breed must contain an "s" somewhere in its name, but can have any number of letters before or after the "s"
+
+DAYNAME:
+to know how many tests Dognition customers complete on different days of the week:
+SELECT dog_guid, created_at
+FROM complete_tests
+WHERE DAYNAME(created_at)="Tuesday";
+
+To select all the Dog IDs and time stamps of tests completed after the 15 of every month with this command that extracts the "DAY" date part out of each time stamp
+SELECT dog_guid, created_at
+FROM complete_tests
+WHERE DAY(created_at) > 15;
+
+To select all the Dog IDs and time stamps of completed tests from after February 4, 2014
+SELECT dog_guid, created_at
+FROM complete_tests
+WHERE created_at > '2014-02-04';
+
+NULL:
+To select only the rows that have non-null data:
+SELECT user_guid
+FROM users
+WHERE free_start_user IS NOT NULL;
+
+To select only the rows that have null data so that you can examine if these rows share something else in Common
+SELECT user_guid
+FROM users
+WHERE free_start_user IS NULL;
+
+•	IS NULL will indicate rows of data that have null values.
+•	IS NOT NULL will indicate rows that do not have null values.
