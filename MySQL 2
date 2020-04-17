@@ -1,0 +1,32 @@
+WHERE:
+SELECT user_guid, free_start_user-
+FROM users
+WHERE free_start_user=1;
+
+BETWEEN/AND:
+to examine the Dog IDs of dogs who weighed between 10 and 50 pounds
+SELECT dog_guid, weight
+FROM dogs
+WHERE weight BETWEEN 10 AND 50;
+
+OR:
+to examine the Dog IDs of dogs who were "fixed" (neutered) OR DNA tested
+SELECT dog_guid, dog_fixed, dna_tested
+FROM dogs
+WHERE dog_fixed=1 OR dna_tested=1;
+
+AND:
+to examine the Dog IDs of dogs who were fixed but NOT DNA tested
+SELECT dog_guid, dog_fixed, dna_tested
+FROM dogs
+WHERE dog_fixed=1 AND dna_tested!=1;
+
+to look at data from dogs of the breed "Golden Retrievers."
+SELECT dog_guid, breed
+FROM dogs
+WHERE breed='golden retriever';
+
+IN to specify multiple values in a WHERE clause:
+SELECT dog_guid, breed
+FROM dogs
+WHERE breed IN ("golden retriever","poodle");
