@@ -1,0 +1,4 @@
+SELECT columnname/FROM tablename:
+SELECT breed
+FROM dogs;
+
