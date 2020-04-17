@@ -1,4 +1,11 @@
-SELECT columnname/FROM tablename:
+SHOW columns FROM tablename:
+SHOW columns
+FROM dogs
+
+DESCRIBE tablename:
+DESCRIBE users
+
+SELECT columnname FROM tablename:
 SELECT breed
 FROM dogs;
 
@@ -12,3 +19,11 @@ LIMIT 5;
 SELECT breed
 FROM dogs 
 LIMIT 5, 10;
+
+SELECT to query multiple columns:
+SELECT breed, breed_type, breed_group
+FROM dogs LIMIT 5, 10;
+
+"wild card" (*) to return all the data in a table:
+SELECT *
+FROM dogs LIMIT 5, 10;
