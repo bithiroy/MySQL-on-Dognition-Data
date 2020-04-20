@@ -1,3 +1,6 @@
+MySQL 1: Looking at data (SHOW, DESCRIBE, SELECT, FROM, LIMIT)
+
+
 SHOW columns FROM tablename:
   SHOW columns
   FROM dogs
