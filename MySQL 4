@@ -1,0 +1,42 @@
+MySQL 4: Summarizing data (COUNT, SUM, AVG, MIN, MAX, TIMESTAMPDIFF)
+
+-	All aggregate functions require you to enter either a column name or a "*" in the parentheses after the function word.
+
+
+COUNT:
+-	COUNT(*): Null values are included
+COUNT(column name): Null values are excluded.
+
+To count the total number of rows in the breed column:
+  SELECT COUNT(breed)
+  FROM dogs;
+
+COUNT (column name)/DISTINCT:
+-	Cannot use DISTINCT with COUNT(*)
+
+To count the total number of indivdual dogs successfully completed at least one test:
+  SELECT COUNT(DISTINCT Dog_Guid)
+  FROM complete_tests;
+
+SUM/ISNULL:
+To count exactly how many null values:
+  SELECT SUM(ISNULL(exclude))
+  FROM dogs;
+
+AVG, MIN, MAX:
+
+  SELECT test_name, 
+    AVG(rating) AS AVG_Rating, 
+    MIN(rating) AS MIN_Rating, 
+    MAX(rating) AS MAX_Rating
+  FROM reviews
+  WHERE test_name="Eye Contact Game";
+
+TIMESTAMPDIFF:
+
+To khow much time it took to complete each test provided in the exam_answers table, in minutes? Title the column that represents this data "Duration.":
+
+  SELECT TIMESTAMPDIFF(minute,start_time,end_time) AS Duration
+  FROM exam_answers
+
+-	Instead of minute, it can be hour or second.
