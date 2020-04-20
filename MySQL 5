@@ -1,3 +1,54 @@
 MySQL 5: Summarizing Groups of Data (GROUP BY, HAVING)
 
 
+GROUP BY:
+-	The GROUP BY clause comes after the WHERE clause, but before ORDER BY or LIMIT.
+-	Must include the column name of GROUP BY clause in SELECT.
+
+To know the average rating for each of the 40 tests in the Reviews table;
+Average all of the 40 rows that have same value in the test_name column:
+  SELECT test_name, AVG(rating) AS AVG_Rating
+  FROM reviews
+  GROUP BY test_name;
+
+GROUP using derived values:
+  SELECT test_name, MONTH(created_at) AS Month, COUNT(created_at) AS Num_Completed_Tests
+  FROM complete_tests
+  GROUP BY Month;
+
+can also group by multiple columns or derived fields:
+  SELECT test_name, MONTH(created_at) AS Month, COUNT(created_at) AS Num_Completed_Tests
+  FROM complete_tests
+  GROUP BY test_name, Month;
+
+MySQL allows you to use aliases in a GROUP BY clause:
+  SELECT test_name, MONTH(created_at) AS Month, COUNT(created_at) AS Num_Completed_Tests
+  FROM complete_tests
+  GROUP BY test_name, MONTH(created_at);
+  
+ SELECT test_name, MONTH(created_at) AS Month, COUNT(created_at) AS Num_Completed_Tests
+  FROM complete_tests
+  GROUP BY test_name, Month
+  ORDER BY test_name ASC, Month ASC;
+Here test_name would be in 1st column and Month would be in second column.
+
+Can also be done using number:
+  SELECT test_name, MONTH(created_at) AS Month, COUNT(created_at) AS Num_Completed_Tests
+  FROM complete_tests
+  GROUP BY 1, 2
+  ORDER BY 1 ASC, 2 ASC;
+
+
+HAVING:
+- subsets of aggregated groups using the HAVING clause 
+(similar to the subsets of rows using the WHERE clause).
+
+To examine the number of tests completed only during the winter holiday months of November and December, and want to output only the test-month pairs that had at least 20 records in them:
+  SELECT test_name, MONTH(created_at) AS Month, COUNT(created_at) AS Num_Completed_Tests
+  FROM complete_tests
+  WHERE MONTH(created_at)=11 OR MONTH(created_at)=12
+  GROUP BY 1, 2
+  HAVING COUNT(created_at)>=20
+  ORDER BY 3 DESC;
+
+
