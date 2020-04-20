@@ -1,2 +1,52 @@
 MySQL 6: Joining Tables with Inner Joins
 
+
+1. Inner Joins between 2 tables:
+- An inner join is a join that outputs only rows that have an exact match in both tables being joined:
+INNER_JOIN
+-	Joining two tables together: (1) list all the fields you want to extract in the SELECT statement, (2) specify which table they came from in the SELECT statement, (3) list all the tables from which you will need to extract the fields in the FROM statement, and (4) then tell the database how to connect the tables in the WHERE statement.
+-	To join the tables, you can use a WHERE clause and add a couple of details to the FROM clause so that the database knows from what table each field in your SELECT clause comes.
+Example 1:
+-	Let's find out whether dog owners that are particularly surprised by their dog's performance on Dognition tests tend to own similar breeds (or breed types, or breed groups) of dogs. 
+-	There are many ways to address this question, but let's start by focusing on the dog owners who provided at least 10 ratings for one or more of their dogs in the ratings table. 
+-	Of these owners, which 200 owners reported the highest average amount of surprise at their dog's performance, and what was the breed, breed_type, and breed_group of each of these owner's dog? 
+-	The surprise ratings are stored in the reviews table and the dog breed information is provided in the dogs table. 
+-	There are two columns that are common to both tables: user_guid and dog_guid. 
+-	How do we use the common columns to combine information from the two tables?
+
+  SELECT d.dog_guid AS DogID, d.user_guid AS UserID, AVG(r.rating) AS AvgRating, 
+         COUNT(r.rating) AS NumRatings, d.breed, d.breed_group, d.breed_type
+  FROM dogs d, reviews r
+  WHERE d.dog_guid=r.dog_guid AND d.user_guid=r.user_guid
+  GROUP BY UserID, DogID, d.breed, d.breed_group, d.breed_type
+  HAVING NumRatings >= 10
+  ORDER BY AvgRating DESC
+  LIMIT 200
+
+
+2. Joining More than 2 Tables:
+
+To extract the user_guid, user's state of residence, user's zip code, dog_guid, breed, breed_type, and breed_group for all animals who completed the "Yawn Warm-up" game:
+
+  SELECT c.user_guid AS UserID, u.state, u.zip, d.dog_guid AS DogID, 
+         d.breed, d.breed_type, d.breed_group
+  FROM dogs d, complete_tests c, users u
+  WHERE d.dog_guid=c.dog_guid AND 
+        c.user_guid=u.user_guid AND 
+        c.test_name="Yawn Warm-up";
+
+[dogs table + complete_test table > complete_test table +user table]
+
+The above query focuses the relationships primarily on the complete_tests table. 
+However, it turns out that our Dognition dataset has only NULL values in the user_guid column of the complete_tests table.
+We can use the dogs table to link the complete_tests and users table:
+
+  SELECT d.user_guid AS UserID, u.state, u.zip, d.dog_guid AS DogID, 
+         d.breed, d.breed_type, d.breed_group
+  FROM dogs d, complete_tests c, users u
+  WHERE d.dog_guid=c.dog_guid AND 
+        d.user_guid=u.user_guid AND 
+        c.test_name="Yawn Warm-up";
+
+[dogs table + complete_test table > dogs table +user table]
+
