@@ -11,3 +11,5 @@ MySQL 2: Selecting specific data (WHERE, BETWEEN, AND, OR, IN, LIKE, DAYNAME/DAY
 
 MySQL 3: Formatting selected data (AS, DISTINCT, ORDER BY, DESC/ASC, REPLACE, TRIM)
 
+MySQL 4: Summarizing data (COUNT, SUM, AVG, MIN, MAX, TIMESTAMPDIFF)
+
