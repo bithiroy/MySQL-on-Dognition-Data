@@ -1,0 +1,20 @@
+Order to write the queries being sent to database:
+  SELECT
+  DISTINCT
+  FROM
+  WHERE
+  GROUP BY
+  HAVING
+  ORDER BY
+  LIMIT
+
+
+Order for database to execute the queries:
+  FROM
+  WHERE
+  GROUP BY
+  HAVING
+  SELECT
+  DITINCT
+  ORDER BY
+  LIMIT
