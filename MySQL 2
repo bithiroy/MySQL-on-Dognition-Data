@@ -4,24 +4,24 @@ FROM users
 WHERE free_start_user=1;
 
 BETWEEN/AND:
-to examine the Dog IDs of dogs who weighed between 10 and 50 pounds
+to examine the Dog IDs of dogs who weighed between 10 and 50 pounds:
 SELECT dog_guid, weight
 FROM dogs
 WHERE weight BETWEEN 10 AND 50;
 
 OR:
-to examine the Dog IDs of dogs who were "fixed" (neutered) OR DNA tested
+to examine the Dog IDs of dogs who were "fixed" (neutered) OR DNA tested:
 SELECT dog_guid, dog_fixed, dna_tested
 FROM dogs
 WHERE dog_fixed=1 OR dna_tested=1;
 
 AND:
-to examine the Dog IDs of dogs who were fixed but NOT DNA tested
+to examine the Dog IDs of dogs who were fixed but NOT DNA tested:
 SELECT dog_guid, dog_fixed, dna_tested
 FROM dogs
 WHERE dog_fixed=1 AND dna_tested!=1;
 
-to look at data from dogs of the breed "Golden Retrievers."
+to look at data from dogs of the breed "Golden Retrievers.":
 SELECT dog_guid, breed
 FROM dogs
 WHERE breed='golden retriever';
@@ -47,12 +47,12 @@ SELECT dog_guid, created_at
 FROM complete_tests
 WHERE DAYNAME(created_at)="Tuesday";
 
-To select all the Dog IDs and time stamps of tests completed after the 15 of every month with this command that extracts the "DAY" date part out of each time stamp
+To select all the Dog IDs and time stamps of tests completed after the 15 of every month with this command that extracts the "DAY" date part out of each time stamp:
 SELECT dog_guid, created_at
 FROM complete_tests
 WHERE DAY(created_at) > 15;
 
-To select all the Dog IDs and time stamps of completed tests from after February 4, 2014
+To select all the Dog IDs and time stamps of completed tests from after February 4, 2014:
 SELECT dog_guid, created_at
 FROM complete_tests
 WHERE created_at > '2014-02-04';
@@ -63,7 +63,7 @@ SELECT user_guid
 FROM users
 WHERE free_start_user IS NOT NULL;
 
-To select only the rows that have null data so that you can examine if these rows share something else in Common
+To select only the rows that have null data so that you can examine if these rows share something else in Common:
 SELECT user_guid
 FROM users
 WHERE free_start_user IS NULL;
