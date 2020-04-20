@@ -47,23 +47,23 @@ to know how many tests Dognition customers complete on different days of the wee
   FROM complete_tests
   WHERE DAYNAME(created_at)="Tuesday";
 
-To select all the Dog IDs and time stamps of tests completed after the 15 of every month with this command that extracts the "DAY" date part out of each time stamp:
+to select all the Dog IDs and time stamps of tests completed after the 15 of every month with this command that extracts the "DAY" date part out of each time stamp:
   SELECT dog_guid, created_at
   FROM complete_tests
   WHERE DAY(created_at) > 15;
 
-To select all the Dog IDs and time stamps of completed tests from after February 4, 2014:
+to select all the Dog IDs and time stamps of completed tests from after February 4, 2014:
   SELECT dog_guid, created_at
   FROM complete_tests
   WHERE created_at > '2014-02-04';
 
 NULL:
-To select only the rows that have non-null data:
+to select only the rows that have non-null data:
   SELECT user_guid
   FROM users
   WHERE free_start_user IS NOT NULL;
 
-To select only the rows that have null data so that you can examine if these rows share something else in Common:
+to select only the rows that have null data so that you can examine if these rows share something else in Common:
   SELECT user_guid
   FROM users
   WHERE free_start_user IS NULL;
