@@ -1,6 +1,6 @@
 MySQL 4: Summarizing data (COUNT, SUM, AVG, MIN, MAX, TIMESTAMPDIFF)
 
--	All aggregate functions require you to enter either a column name or a "*" in the parentheses after the function word.
+All aggregate functions require you to enter either a column name or a "*" in the parentheses after the function word.
 
 
 COUNT:
