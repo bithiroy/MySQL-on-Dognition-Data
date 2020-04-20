@@ -18,3 +18,5 @@ MySQL 5: Summarizing Groups of Data (GROUP BY, HAVING)
 MySQL 6: Joining Tables with Inner Joins
 
 MySQL 7: Joining Tables with Outer Joins
+
+MySQL 8: Subqueries and Derived Tables
