@@ -13,3 +13,5 @@ MySQL 3: Formatting selected data (AS, DISTINCT, ORDER BY, DESC/ASC, REPLACE, TR
 
 MySQL 4: Summarizing data (COUNT, SUM, AVG, MIN, MAX, TIMESTAMPDIFF)
 
+MySQL 5: Summarizing Groups of Data (GROUP BY, HAVING)
+
