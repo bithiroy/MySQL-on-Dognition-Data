@@ -1,2 +1,81 @@
 MySQL 7: Joining Tables with Outer Joins
 
+
+-	COUNT DISTINCT does NOT count NULL values, (while SELECT/GROUP BY clauses roll up NULL values into one group. )
+-	If you want to infer the number of distinct entries from the results of a query using joins and GROUP BY clauses, remember to include an "IS NOT NULL" clause to ensure you are not counting NULL values.
+
+1. JOIN with ON (by default Inner Join):
+
+  SELECT d.dog_guid AS DogID, d.user_guid AS UserID, AVG(r.rating) AS AvgRating, 
+         COUNT(r.rating) AS NumRatings, d.breed, d.breed_group, d.breed_type
+  FROM dogs d JOIN reviews r
+	     ON d.dog_guid=r.dog_guid AND d.user_guid=r.user_guid
+  GROUP BY d.user_guid
+  HAVING NumRatings > 9
+  ORDER BY AvgRating DESC
+  LIMIT 200;
+
+
+2. LEFT JOIN:
+To retrieve a full list of dogs who completed at least 10 tests in the reviews table, and include as much breed information as possible:
+
+  SELECT r.dog_guid AS rDogID, d.dog_guid AS dDogID, r.user_guid AS rUserID, 
+       d.user_guid AS dUserID, AVG(r.rating) AS AvgRating, 
+       COUNT(r.rating) AS NumRatings, d.breed, d.breed_group, d.breed_type
+  FROM reviews r LEFT JOIN dogs d
+	   ON r.dog_guid=d.dog_guid AND r.user_guid=d.user_guid
+  WHERE r.dog_guid IS NOT NULL
+  GROUP BY r.dog_guid
+  HAVING NumRatings >= 10
+  ORDER BY AvgRating DESC;
+
+
+3. RIGHT JOIN:
+
+  SELECT r.dog_guid AS rDogID, d.dog_guid AS dDogID, r.user_guid AS rUserID, 
+         d.user_guid AS dUserID, AVG(r.rating) AS AvgRating, 
+         COUNT(r.rating) AS NumRatings, d.breed, d.breed_group, d.breed_type
+  FROM dogs d RIGHT JOIN reviews r
+  ON d.dog_guid=r.dog_guid AND d.user_guid=r.user_guid
+  WHERE r.dog_guid IS NOT NULL
+  GROUP BY r.dog_guid
+  HAVING NumRatings >= 10
+  ORDER BY AvgRating DESC;
+
+To extract all of the breed information of every dog a user_guid in the users table owns. 
+If a user_guid in the users table does not own a dog, we want that information as well. 
+Write a query that would return this information. 
+Include the dog_guid from the dogs table, and user_guid from both the users and dogs tables in your output:
+
+  SELECT u.user_guid AS uUserID, d.dog_guid AS dDogID, d.user_guid AS dUserID, d.breed
+  FROM users u LEFT JOIN dogs d
+ 	     ON u.user_guid=d.user_guid;
+
+    Or,
+    
+  SELECT u.user_guid AS uUserID, d.dog_guid AS dDogID, d.user_guid AS dUserID, d.breed
+  FROM dogs d RIGHT JOIN users u 
+  	   ON d.user_guid=u.user_guid;
+
+
+4. FULL OUTER JOIN (MySQL does not support):
+-	The syntax for outer joins is the same as for inner joins, but you replace the word "inner" with " full outer"
+
+  SELECT r.dog_guid AS rDogID, d.dog_guid AS dDogID, r.user_guid AS rUserID, 
+         d.user_guid AS dUserID, AVG(r.rating) AS AvgRating, 
+         COUNT(r.rating) AS NumRatings, d.breed, d.breed_group, d.breed_type
+  FROM reviews r FULL OUTER JOIN dogs d
+	     ON r.dog_guid=d.dog_guid AND r.user_guid=d.user_guid
+  WHERE r.dog_guid IS NOT NULL
+  GROUP BY r.dog_guid
+  ORDER BY AvgRating DESC;
+
+
+Use a left join to create a list of all the unique dog_guids that are contained in the site_activities table, but not the dogs table, and how many times each one is entered. Note that there are a lot of NULL values in the dog_guid of the site_activities table, so you will want to exclude them from your list:
+
+  SELECT s.dog_guid AS sDogID, COUNT(*) AS NumEntries
+  FROM site_activities s LEFT JOIN dogs d
+      ON s.dog_guid=d.dog_guid
+  WHERE d.dog_guid IS NULL AND s.dog_guid IS NOT NULL
+  GROUP BY sDogID;
+ 
