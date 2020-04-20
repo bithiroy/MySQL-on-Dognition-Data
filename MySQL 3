@@ -1,3 +1,6 @@
+MySQL 3: Formatting selected data (AS, DISTINCT, ORDER BY, DESC/ASC, REPLACE, TRIM)
+
+
 AS to change title name:
 to change the name of the time stamp field of the completed_tests table from "created_at" to "time_stamp":
   SELECT dog_guid, created_at AS time_stamp
@@ -88,5 +91,4 @@ TRIM:
   SELECT DISTINCT breed, TRIM(LEADING '-' FROM breed) AS breed_fixed
   FROM dogs
   ORDER BY breed_fixed;
-
 
