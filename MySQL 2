@@ -1,3 +1,6 @@
+MySQL 2: Selecting specific data (WHERE, BETWEEN, AND, OR, IN, LIKE, DAYNAME/DAY, NULL)
+
+
 WHERE:
   SELECT user_guid, free_start_user-
   FROM users
