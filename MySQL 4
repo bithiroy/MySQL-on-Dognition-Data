@@ -1,4 +1,4 @@
-MySQL 4: Summarizing data (COUNT, SUM, AVG, MIN, MAX, TIMESTAMPDIFF)
+MySQL 4: Summarizing data (COUNT, SUM, AVG, MIN, MAX, TIMESTAMPDIFF, STDDEV)
 
 All aggregate functions require you to enter either a column name or a "*" in the parentheses after the function word.
 
@@ -40,3 +40,6 @@ To khow much time it took to complete each test provided in the exam_answers tab
   FROM exam_answers
 
 -	Instead of minute, it can be hour or second.
+
+
+Standard deviations in SQL using the STDDEV function.
