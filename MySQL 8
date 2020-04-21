@@ -1,0 +1,91 @@
+MySQL 8: Subqueries and Derived Tables
+
+
+
+1)	"On the fly calculations" (or, doing calculations as needed):
+
+To calculate the average amount of time it took customers to complete all of the tests in the exam_answers table 
+(we had to exclude negative durations from the calculation due to some abnormalities in the data):
+  SELECT AVG(TIMESTAMPDIFF(minute,start_time,end_time)) AS AvgDuration
+  FROM exam_answers
+  WHERE TIMESTAMPDIFF(minute,start_time,end_time)>0;
+
+To look at just the data from rows whose durations were greater than the average:
+  SELECT *
+  FROM exam_answers 
+  WHERE TIMESTAMPDIFF(minute,start_time,end_time) >
+    (SELECT AVG(TIMESTAMPDIFF(minute,start_time,end_time)) AS AvgDuration
+     FROM exam_answers
+     WHERE TIMESTAMPDIFF(minute,start_time,end_time)>0);
+
+
+2)	Testing membership (IN, NOT IN, EXISTS, and NOT EXISTS):
+
+To select all the users who live in the state of North Carolina (abbreviated "NC") or New York (abbreviated "NY"):
+  SELECT * 
+  FROM users
+  WHERE state IN ('NC','NY');
+ 
+Or,
+  SELECT * 
+  FROM users
+  WHERE state ='NC' OR state ='NY';
+
+To select all the users who do NOT live in the state of North Carolina or New York:
+  SELECT * 
+  FROM users
+  WHERE state NOT IN ('NC','NY');
+  
+-	EXISTS and NOT EXISTS perform similar functions to IN and NOT IN, but EXISTS and NOT EXISTS can only be used in subqueries. 
+-	The most important difference between EXISTS/NOT EXISTS and IN/NOT IN statements, 
+  though, is that unlike IN/NOT IN statements, EXISTS/NOT EXISTS are logical statements. 
+-	Rather than returning raw data, per se, EXISTS/NOT EXISTS statements return a value of TRUE or FALSE. 
+-	As a practical consequence, EXISTS statements are often written using an asterisk after the SELECT clause 
+  rather than explicit column names.
+
+To retrieve a list of all the users in the users table who were also in the dogs table:
+  SELECT DISTINCT u.user_guid AS uUserID
+  FROM users u
+  WHERE EXISTS (SELECT d.user_guid
+              	FROM dogs d 
+              	WHERE u.user_guid =d.user_guid);
+Or,
+  SELECT DISTINCT u.user_guid AS uUserID
+  FROM users u
+  WHERE EXISTS (SELECT *
+             		FROM dogs d 
+              	WHERE u.user_guid =d.user_guid);
+
+
+3)	Accurate logical representations of desired output and Derived Tables (DistinctUUsersID)
+To assess how many rows would be outputted per user_id when we left joined the users table on the dogs table:
+    SELECT u.user_guid AS uUserID, 
+           d.user_guid AS dUserID, 
+           count(*) AS numrows
+    FROM users u 
+	    LEFT JOIN dogs d
+   		ON u.user_guid=d.user_guid
+    GROUP BY u.user_guid
+    ORDER BY numrows DESC;
+
+-	Subqueries always run the innermost subquery first, and then run subsequent queries sequentially 
+  in order from the innermost query to the outermost query. 
+-	As mentioned at the beginning of the lesson, since the subquery is in the FROM statement, 
+  it actually creates a temporary table, called a derived table, that is then incorporated into the rest of the query.
+-	Subqueries and joins can often be used interchangeably. 
+
+To complete the join on ONLY distinct UserIDs from the users table, we could write:
+  SELECT DistinctUUsersID.user_guid AS uUserID, 
+         d.user_guid AS dUserID, 
+         count(*) AS numrows
+  FROM 
+	  (SELECT DISTINCT u.user_guid 
+            	FROM users u) AS DistinctUUsersID 
+     LEFT JOIN dogs d
+            ON DistinctUUsersID.user_guid=d.user_guid
+  GROUP BY DistinctUUsersID.user_guid
+  ORDER BY numrows DESC;
+
+the query we just wrote extracts the distinct user_guids from the users table first, 
+and then left joins that reduced subset of user_guids on the dogs table. 
+
