@@ -20,3 +20,5 @@ MySQL 6: Joining Tables with Inner Joins
 MySQL 7: Joining Tables with Outer Joins
 
 MySQL 8: Subqueries and Derived Tables
+
+MySQL 9: Useful Logical Operators (If, CASE)
