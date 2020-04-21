@@ -35,3 +35,50 @@ Multiple IF expressions:
      	   FROM users
       	 WHERE country IS NOT NULL) AS cleaned_users
     GROUP BY US_user;
+
+
+2. CASE expressions:
+- To return a singular value based on one or more conditional tests.
+
+	SELECT CASE 
+	      		WHEN cleaned_users.country="US" THEN "In US"
+            		WHEN cleaned_users.country="N/A" THEN "Not Applicable"
+            		ELSE "Outside US"
+               END AS US_user, 
+      	       count(cleaned_users.user_guid)   
+	FROM 
+           (SELECT DISTINCT user_guid, country 
+            FROM users
+            WHERE country IS NOT NULL) AS cleaned_users
+	GROUP BY US_user;
+
+
+	SELECT CASE cleaned_users.country
+            	   WHEN "US" THEN "In US"
+           	   WHEN "N/A" THEN "Not Applicable"
+            	   ELSE "Outside US"
+            	END AS US_user, 
+      		count(cleaned_users.user_guid)   
+	FROM 
+      		(SELECT DISTINCT user_guid, country 
+      		FROM users
+      		WHERE country IS NOT NULL) AS cleaned_users
+	GROUP BY US_user;
+
+Important things to know:
+•	Make sure to include the word END at the end of the expression
+•	CASE expressions do not require parentheses
+•	ELSE expressions are optional
+•	If an ELSE expression is omitted, NULL values will be outputted for all rows that do not meet any of the conditions stated explicitly in the expression
+•	CASE expressions can be used anywhere in a SQL statement, including in GROUP BY, HAVING, and ORDER BY clauses or the SELECT column list.
+
+
+
+3. Pay attention to the order of operations within logical expressions (NOT, AND, OR):
+- Evaluation order: 
+	1. NOT
+	2. AND
+	3. OR
+- Make sure we always pay attention to the order in which our logical operators are listed in our expressions, and whenever possible, include parentheses to ensure that the expressions are evaluated in the way we intend!
+
+
