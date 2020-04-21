@@ -36,9 +36,10 @@ To select all the users who do NOT live in the state of North Carolina or New Yo
   FROM users
   WHERE state NOT IN ('NC','NY');
   
--	EXISTS and NOT EXISTS perform similar functions to IN and NOT IN, but EXISTS and NOT EXISTS can only be used in subqueries. 
+-	EXISTS and NOT EXISTS perform similar functions to IN and NOT IN, 
+	but EXISTS and NOT EXISTS can only be used in subqueries. 
 -	The most important difference between EXISTS/NOT EXISTS and IN/NOT IN statements, 
-  though, is that unlike IN/NOT IN statements, EXISTS/NOT EXISTS are logical statements. 
+  	though, is that unlike IN/NOT IN statements, EXISTS/NOT EXISTS are logical statements. 
 -	Rather than returning raw data, per se, EXISTS/NOT EXISTS statements return a value of TRUE or FALSE. 
 -	As a practical consequence, EXISTS statements are often written using an asterisk after the SELECT clause 
   rather than explicit column names.
