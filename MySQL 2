@@ -40,9 +40,10 @@ to look at all the data from breeds whose names started with "s":
   FROM dogs
   WHERE breed LIKE ("s%");
 
-•	WHERE breed LIKE ("s%") = the breed must start with "s", but can have any number of letters after the "s"
-•	WHERE breed LIKE ("%s") = the breed must end with "s", but can have any number of letters before the "s"
-•	WHERE breed LIKE ("%s%") = the breed must contain an "s" somewhere in its name, but can have any number of letters before or after the "s"
+•	WHERE breed LIKE ("s%") = the breed must start with "s", but can have any number of letters after the "s".
+•	WHERE breed LIKE ("%s") = the breed must end with "s", but can have any number of letters before the "s".
+•	WHERE breed LIKE ("%s%") = the breed must contain an "s" somewhere in its name, 
+  but can have any number of letters before or after the "s".
 
 DAYNAME:
 to know how many tests Dognition customers complete on different days of the week:
@@ -50,7 +51,8 @@ to know how many tests Dognition customers complete on different days of the wee
   FROM complete_tests
   WHERE DAYNAME(created_at)="Tuesday";
 
-to select all the Dog IDs and time stamps of tests completed after the 15 of every month with this command that extracts the "DAY" date part out of each time stamp:
+to select all the Dog IDs and time stamps of tests completed after the 15 of every month with this command 
+that extracts the "DAY" date part out of each time stamp:
   SELECT dog_guid, created_at
   FROM complete_tests
   WHERE DAY(created_at) > 15;
