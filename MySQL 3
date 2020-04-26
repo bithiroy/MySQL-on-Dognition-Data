@@ -23,7 +23,9 @@ To list of all the breeds of dogs with no duplicate rows:
 
 
 DISTINCT/LIMIT:
-When you use the DISTINCT clause with the LIMIT clause in a statement, MySQL stops searching when it finds the number of unique rows specified in the LIMIT clause, not when it goes through the number of rows in the LIMIT clause.
+When you use the DISTINCT clause with the LIMIT clause in a statement, MySQL stops searching 
+when it finds the number of unique rows specified in the LIMIT clause, 
+not when it goes through the number of rows in the LIMIT clause.
   
   SELECT DISTINCT breed
   FROM dogs LIMIT 5;
@@ -46,32 +48,40 @@ want the breeds of dogs in the dog table sorted in descending order:
 ORDER BY/LIMIT:
 
 to select the "top 10" and "last 10" in a list or column
-to select the User IDs and Dog IDs of the 5 customer-dog pairs who spent the least median amount of time between their Dognition tests:
+
+to select the User IDs and Dog IDs of the 5 customer-dog pairs who spent the least median amount of time 
+between their Dognition tests:
   SELECT DISTINCT user_guid, median_ITI_minutes
   FROM dogs
   ORDER BY median_ITI_minutes
   LIMIT 5;
   
-to select the User IDs and Dog IDs of the 5 customer-dog pairs who spent the greatest median amount of time between their Dognition tests:
+to select the User IDs and Dog IDs of the 5 customer-dog pairs who spent the greatest median amount of time 
+between their Dognition tests:
   SELECT DISTINCT user_guid, median_ITI_minutes
   FROM dogs
   ORDER BY median_ITI_minutes DESC
   LIMIT 5;
 
-If you wanted your inter-test interval to be expressed in seconds instead of minutes, you could incorporate a derived column and an alias into your last query to get the 5 customer-dog pairs who spent the greatest median amount of time between their Dognition tests in seconds:
+If you wanted your inter-test interval to be expressed in seconds instead of minutes, 
+you could incorporate a derived column and an alias into your last query to get the 5 customer-dog pairs 
+who spent the greatest median amount of time between their Dognition tests in seconds:
   SELECT DISTINCT user_guid, (median_ITI_minutes * 60) AS median_ITI_sec
   FROM dogs
   ORDER BY median_ITI_sec DESC
   LIMIT 5;
 
 
-If you wanted to select all the distinct User IDs of customers in the United States (abbreviated "US") and sort them according to the states they live in in alphabetical order first, and membership type second:
+If you wanted to select all the distinct User IDs of customers in the United States (abbreviated "US") and 
+sort them according to the states they live in in alphabetical order first, and membership type second:
   SELECT DISTINCT user_guid, state, membership_type
   FROM users
   WHERE country="US" 
   ORDER BY state ASC, membership_type ASC;
 
-If you wanted to select all the distinct User IDs of customers in the United States (abbreviated "US") and sort them according to the states they live in in alphabetical order first, and membership type second (only select rows that do not have null values in either the state or membership_type column):
+If you wanted to select all the distinct User IDs of customers in the United States (abbreviated "US") and 
+sort them according to the states they live in in alphabetical order first, and 
+membership type second (only select rows that do not have null values in either the state or membership_type column):
   SELECT DISTINCT user_guid, state, membership_type
   FROM users
   WHERE country="US" AND state IS NOT NULL and membership_type IS NOT NULL
