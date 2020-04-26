@@ -34,7 +34,8 @@ AVG, MIN, MAX:
 
 TIMESTAMPDIFF:
 
-To khow much time it took to complete each test provided in the exam_answers table, in minutes? Title the column that represents this data "Duration.":
+To khow much time it took to complete each test provided in the exam_answers table, in minutes? 
+Title the column that represents this data "Duration.":
 
   SELECT TIMESTAMPDIFF(minute,start_time,end_time) AS Duration
   FROM exam_answers
