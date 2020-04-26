@@ -4,12 +4,21 @@ MySQL 6: Joining Tables with Inner Joins
 1. Inner Joins between 2 tables:
 - An inner join is a join that outputs only rows that have an exact match in both tables being joined:
 INNER_JOIN
--	Joining two tables together: (1) list all the fields you want to extract in the SELECT statement, (2) specify which table they came from in the SELECT statement, (3) list all the tables from which you will need to extract the fields in the FROM statement, and (4) then tell the database how to connect the tables in the WHERE statement.
--	To join the tables, you can use a WHERE clause and add a couple of details to the FROM clause so that the database knows from what table each field in your SELECT clause comes.
+-	Joining two tables together: 
+         (1) list all the fields you want to extract in the SELECT statement, 
+         (2) specify which table they came from in the SELECT statement, 
+         (3) list all the tables from which you will need to extract the fields in the FROM statement, and 
+         (4) then tell the database how to connect the tables in the WHERE statement.
+-	To join the tables, you can use a WHERE clause and add a couple of details to the FROM clause so that 
+  the database knows from what table each field in your SELECT clause comes.
+
 Example 1:
--	Let's find out whether dog owners that are particularly surprised by their dog's performance on Dognition tests tend to own similar breeds (or breed types, or breed groups) of dogs. 
--	There are many ways to address this question, but let's start by focusing on the dog owners who provided at least 10 ratings for one or more of their dogs in the ratings table. 
--	Of these owners, which 200 owners reported the highest average amount of surprise at their dog's performance, and what was the breed, breed_type, and breed_group of each of these owner's dog? 
+-	Let's find out whether dog owners that are particularly surprised by their dog's performance on Dognition tests 
+  tend to own similar breeds (or breed types, or breed groups) of dogs. 
+-	There are many ways to address this question, but let's start by focusing on the dog owners who provided at least 10 ratings 
+  for one or more of their dogs in the ratings table. 
+-	Of these owners, which 200 owners reported the highest average amount of surprise at their dog's performance, and 
+  what was the breed, breed_type, and breed_group of each of these owner's dog? 
 -	The surprise ratings are stored in the reviews table and the dog breed information is provided in the dogs table. 
 -	There are two columns that are common to both tables: user_guid and dog_guid. 
 -	How do we use the common columns to combine information from the two tables?
@@ -26,7 +35,8 @@ Example 1:
 
 2. Joining More than 2 Tables:
 
-To extract the user_guid, user's state of residence, user's zip code, dog_guid, breed, breed_type, and breed_group for all animals who completed the "Yawn Warm-up" game:
+To extract the user_guid, user's state of residence, user's zip code, dog_guid, breed, breed_type, and breed_group 
+for all animals who completed the "Yawn Warm-up" game:
 
   SELECT c.user_guid AS UserID, u.state, u.zip, d.dog_guid AS DogID, 
          d.breed, d.breed_type, d.breed_group
