@@ -15,8 +15,8 @@ INNER_JOIN
 Example 1:
 -	Let's find out whether dog owners that are particularly surprised by their dog's performance on Dognition tests 
   tend to own similar breeds (or breed types, or breed groups) of dogs. 
--	There are many ways to address this question, but let's start by focusing on the dog owners who provided at least 10 ratings 
-  for one or more of their dogs in the ratings table. 
+-	There are many ways to address this question, but let's start by focusing on the dog owners who provided 
+         at least 10 ratings for one or more of their dogs in the ratings table. 
 -	Of these owners, which 200 owners reported the highest average amount of surprise at their dog's performance, and 
   what was the breed, breed_type, and breed_group of each of these owner's dog? 
 -	The surprise ratings are stored in the reviews table and the dog breed information is provided in the dogs table. 
