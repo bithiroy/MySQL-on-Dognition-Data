@@ -2,7 +2,8 @@ MySQL 7: Joining Tables with Outer Joins
 
 
 -	COUNT DISTINCT does NOT count NULL values, (while SELECT/GROUP BY clauses roll up NULL values into one group. )
--	If you want to infer the number of distinct entries from the results of a query using joins and GROUP BY clauses, remember to include an "IS NOT NULL" clause to ensure you are not counting NULL values.
+-	If you want to infer the number of distinct entries from the results of a query using joins and GROUP BY clauses, 
+	remember to include an "IS NOT NULL" clause to ensure you are not counting NULL values.
 
 1. JOIN with ON (by default Inner Join):
 
@@ -17,7 +18,8 @@ MySQL 7: Joining Tables with Outer Joins
 
 
 2. LEFT JOIN:
-To retrieve a full list of dogs who completed at least 10 tests in the reviews table, and include as much breed information as possible:
+To retrieve a full list of dogs who completed at least 10 tests in the reviews table, and 
+include as much breed information as possible:
 
   SELECT r.dog_guid AS rDogID, d.dog_guid AS dDogID, r.user_guid AS rUserID, 
        d.user_guid AS dUserID, AVG(r.rating) AS AvgRating, 
@@ -71,7 +73,10 @@ Include the dog_guid from the dogs table, and user_guid from both the users and 
   ORDER BY AvgRating DESC;
 
 
-Use a left join to create a list of all the unique dog_guids that are contained in the site_activities table, but not the dogs table, and how many times each one is entered. Note that there are a lot of NULL values in the dog_guid of the site_activities table, so you will want to exclude them from your list:
+Use a left join to create a list of all the unique dog_guids that are contained in the site_activities table, 
+but not the dogs table, and how many times each one is entered. 
+Note that there are a lot of NULL values in the dog_guid of the site_activities table, 
+so you will want to exclude them from your list:
 
   SELECT s.dog_guid AS sDogID, COUNT(*) AS NumEntries
   FROM site_activities s LEFT JOIN dogs d
