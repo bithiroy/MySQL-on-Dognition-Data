@@ -4,7 +4,8 @@ MySQL 9: Useful Logical Operators (If, CASE)
 - Frequently used in SELECT statements as a compact way to rename values in a column.
     IF([your conditions],[value outputted if conditions are met],[value outputted if conditions are NOT met])
 
-to output one column that provided the time stamp of when a user account was created, and a second column called user_type that used that time stamp to determine whether the user was an early or late user:
+to output one column that provided the time stamp of when a user account was created, and 
+a second column called user_type that used that time stamp to determine whether the user was an early or late user:
 
     SELECT created_at, IF(created_at<'2014-06-01','early_user','late_user') AS user_type
     FROM users;
@@ -26,7 +27,9 @@ To count the number of unique early or late users using a GROUP BY statement:
 
 
 Multiple IF expressions:
--	When you nest IF expressions, it is important to encase each IF expression--as well as the entire IF expression put together--in parentheses.
+-	When you nest IF expressions, it is important to encase each IF expression--as well as 
+	the entire IF expression put together--in parentheses.
+    
     SELECT IF(cleaned_users.country='US','In US', 
               IF(cleaned_users.country='N/A','Not Applicable','Outside US')) AS US_user, 
              count(cleaned_users.user_guid)   
@@ -66,11 +69,13 @@ Multiple IF expressions:
 	GROUP BY US_user;
 
 Important things to know:
-•	Make sure to include the word END at the end of the expression
-•	CASE expressions do not require parentheses
-•	ELSE expressions are optional
-•	If an ELSE expression is omitted, NULL values will be outputted for all rows that do not meet any of the conditions stated explicitly in the expression
-•	CASE expressions can be used anywhere in a SQL statement, including in GROUP BY, HAVING, and ORDER BY clauses or the SELECT column list.
+•	Make sure to include the word END at the end of the expression.
+•	CASE expressions do not require parentheses.
+•	ELSE expressions are optional.
+•	If an ELSE expression is omitted, NULL values will be outputted for all rows that 
+	do not meet any of the conditions stated explicitly in the expression.
+•	CASE expressions can be used anywhere in a SQL statement, including in GROUP BY, HAVING, and ORDER BY clauses or 
+	the SELECT column list.
 
 
 
@@ -79,6 +84,7 @@ Important things to know:
 	1. NOT
 	2. AND
 	3. OR
-- Make sure we always pay attention to the order in which our logical operators are listed in our expressions, and whenever possible, include parentheses to ensure that the expressions are evaluated in the way we intend!
+- Make sure we always pay attention to the order in which our logical operators are listed in our expressions, and 
+	whenever possible, include parentheses to ensure that the expressions are evaluated in the way we intend!
 
 
